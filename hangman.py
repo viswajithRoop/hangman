@@ -26,6 +26,7 @@ def mask_word(secret_word, guessed_letters):
         else:
             masked_word += '-'
     return masked_word
+
 def get_status(secret_word, guessed_letters, turns_left):
     return  f"""{mask_word(secret_word, guessed_letters)}
     Guessed Letters: {" ".join(guessed_letters)}
@@ -51,7 +52,7 @@ def main():
     secret_word = get_random_word()
     turns_left = 7
     guessed_letters = []
-    print(secret_word)
+    #print(secret_word)
     while True:
         print(get_status(secret_word, guessed_letters, turns_left))
         current_guess = input("Guess a letter:")
