@@ -93,6 +93,6 @@ def test_process_turn_win():
 def test_process_turn_lost():
     current_guess = "k"
     secret_word = "police"
-    guessed_letters = ["t","i","g","f","u","r"]
+    guessed_letters = ["e","u","h","g","f","r"]
     turns_left = 1
     assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.LOST)

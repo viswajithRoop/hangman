@@ -33,6 +33,7 @@ def get_status(secret_word, guessed_letters, turns_left):
 
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
+        print(f"{current_guess} is ALREADY GUESSED")
         return turns_left, ALREADY_GUESSED,
     if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
         return turns_left, WON
@@ -56,10 +57,10 @@ def main():
         current_guess = input("Guess a letter:")
         turns_left, result = process_turn(secret_word, current_guess, guessed_letters, turns_left)
         if result == WON:
-            print(f"You WON, the word was {secret_word}")
+            print(f"You WON!, the word was {secret_word}")
             break
         if result == LOST:
-            print(f"You LOST, the word was {secret_word}")
+            print(f"You LOST!, the word was {secret_word}")
             break
 if __name__ == "__main__":
     main()
