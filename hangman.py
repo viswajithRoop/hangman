@@ -1,8 +1,9 @@
 import random
-CONTINUE = 1
+
+CONTINUE        = 1
 ALREADY_GUESSED = 2
-WON = 5
-LOST = 6
+WON             = 3
+LOST            = 4
 
 def get_random_word(path='/usr/share/dict/words'):
     good_words = []
@@ -19,18 +20,18 @@ def get_random_word(path='/usr/share/dict/words'):
     return random.choice(good_words)
 
 def mask_word(secret_word, guessed_letters):
-    masked_word = ''
+    masked_word = []
     for char in secret_word:
         if char in guessed_letters:
-            masked_word += char
+            masked_word.append(char)
         else:
-            masked_word += '-'
-    return masked_word
+            masked_word.append('-')
+    return ''.join(masked_word)
 
 def get_status(secret_word, guessed_letters, turns_left):
     return  f"""{mask_word(secret_word, guessed_letters)}
-    Guessed Letters: {" ".join(guessed_letters)}
-    Turns Left: {turns_left}"""
+Guessed Letters: {" ".join(guessed_letters)}
+Turns Left: {turns_left}"""
 
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
@@ -38,21 +39,23 @@ def process_turn(secret_word, current_guess, guessed_letters, turns_left):
         return turns_left, ALREADY_GUESSED,
     if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
         return turns_left, WON
-    if turns_left == 1:
-        return turns_left, LOST
     if current_guess not in secret_word:
         guessed_letters.append(current_guess)
-        turns_left-= 1
-        return turns_left, CONTINUE
+        if turns_left == 1:
+            return turns_left, LOST
+        else:
+            turns_left -= 1
+            return turns_left, CONTINUE
     else:
         guessed_letters.append(current_guess)             
-        return turns_left, CONTINUE
+        return turns_left, CONTINUE        
+
 
 def main():
     secret_word = get_random_word()
     turns_left = 7
     guessed_letters = []
-    #print(secret_word)
+    print(secret_word)
     while True:
         print(get_status(secret_word, guessed_letters, turns_left))
         current_guess = input("Guess a letter:")
@@ -63,5 +66,6 @@ def main():
         if result == LOST:
             print(f"You LOST!, the word was {secret_word}")
             break
+
 if __name__ == "__main__":
     main()

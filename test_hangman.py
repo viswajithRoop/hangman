@@ -59,8 +59,8 @@ def test_get_status():
     guessed_letters = ["o", "j"]
     turns_left = 5
     assert hangman.get_status(secret_word, guessed_letters, turns_left) == f"""{hangman.mask_word(secret_word, guessed_letters)}
-    Guessed Letters: {" ".join(guessed_letters)}
-    Turns Left: {turns_left}"""
+Guessed Letters: {" ".join(guessed_letters)}
+Turns Left: {turns_left}"""
 
 def test_process_turn_already_guessed():
     current_guess = "o"
@@ -68,6 +68,7 @@ def test_process_turn_already_guessed():
     guessed_letters = ["o", "p"]
     turns_left = 5
     assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left ) == (turns_left, hangman.ALREADY_GUESSED)
+
 
 def test_process_turn_wrong_guess():
     current_guess = "b"
